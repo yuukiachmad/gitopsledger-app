@@ -1,0 +1,163 @@
+body {
+  margin: 0;
+  background: #f5f8fa;
+  color: #16213a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ops-shell {
+  min-height: 100vh;
+  display: flex;
+}
+
+.ops-sidebar {
+  width: 240px;
+  background: #0e2f44;
+  color: #f7fbfc;
+  padding: 24px 20px;
+}
+
+.ops-brand {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.ops-nav a {
+  display: block;
+  color: #d8e8ed;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.ops-nav a:hover,
+.ops-nav a.active {
+  background: #16465f;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.ops-main {
+  flex: 1;
+  padding: 28px;
+}
+
+.ops-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.ops-topbar h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #102a43;
+}
+
+.ops-muted {
+  color: #607485;
+}
+
+.ops-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.ops-card {
+  background: #ffffff;
+  border: 1px solid #dce8ee;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(15, 47, 68, 0.05);
+}
+
+.ops-card h2,
+.ops-card h3 {
+  margin-top: 0;
+}
+
+.ops-metric {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0e766e;
+}
+
+.ops-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+}
+
+.ops-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ops-table th,
+.ops-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e6eef2;
+  text-align: left;
+}
+
+.ops-table th {
+  color: #5d7283;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.ops-pill {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #e6f5f2;
+  color: #0e766e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ops-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ops-button {
+  display: inline-block;
+  border: 1px solid #0e766e;
+  border-radius: 6px;
+  color: #0e766e;
+  padding: 8px 12px;
+  text-decoration: none;
+  background: #ffffff;
+}
+
+.ops-button.primary {
+  background: #0e766e;
+  color: #ffffff;
+}
+
+.ops-button:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .ops-shell {
+    display: block;
+  }
+
+  .ops-sidebar {
+    width: auto;
+  }
+
+  .ops-grid,
+  .ops-layout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,64 @@
+services:
+  opsledger-db:
+    image: yuukiachmad/opsledger-db:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${OPSLEDGER_DB_PASSWORD:-opsledger-local-pass}
+    ports:
+      - "3306:3306"
+    volumes:
+      - opsledger-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  opsledger-cache:
+    image: memcached:1.6
+    ports:
+      - "11211:11211"
+    networks:
+      default:
+        aliases:
+          - opsledger-cache-standby
+
+  opsledger-queue:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${OPSLEDGER_RABBITMQ_USERNAME:-opsledger}
+      RABBITMQ_DEFAULT_PASS: ${OPSLEDGER_RABBITMQ_PASSWORD:-opsledger-local-pass}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  opsledger-web:
+    image: yuukiachmad/opsledger-web:latest
+    build:
+      context: .
+    environment:
+      OPSLEDGER_DB_USERNAME: root
+      OPSLEDGER_DB_PASSWORD: ${OPSLEDGER_DB_PASSWORD:-opsledger-local-pass}
+      OPSLEDGER_RABBITMQ_USERNAME: ${OPSLEDGER_RABBITMQ_USERNAME:-opsledger}
+      OPSLEDGER_RABBITMQ_PASSWORD: ${OPSLEDGER_RABBITMQ_PASSWORD:-opsledger-local-pass}
+    ports:
+      - "8080:8080"
+    depends_on:
+      opsledger-db:
+        condition: service_healthy
+      opsledger-cache:
+        condition: service_started
+      opsledger-queue:
+        condition: service_healthy
+
+volumes:
+  opsledger-db-data:
