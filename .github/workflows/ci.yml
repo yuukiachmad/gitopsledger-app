@@ -11,7 +11,7 @@ on:
 env:
   AWS_REGION: ${{ vars.AWS_REGION || 'ap-southeast-3' }}
   ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY || 'opsledgerappimg' }}
-  HELM_REPO_NAME: ${{ vars.HELM_REPO_NAME || 'opsledger-helm' }}
+  HELM_REPO_NAME: gitopsledger-helm
   HELM_VALUES_FILE: helm/opsledger/values.yaml
 
 jobs:
@@ -114,7 +114,7 @@ jobs:
       - name: Checkout Helm repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ secrets.HELM_REPO_USER }}/${{ env.HELM_REPO_NAME }}
+          repository: ${{ github.repository_owner }}/${{ env.HELM_REPO_NAME }}
           token: ${{ secrets.GITOPS_PAT }}
           path: helm-repo
 
