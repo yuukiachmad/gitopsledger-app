@@ -33,7 +33,16 @@ Dockerfile.db                           MySQL image build with seed SQL
 compose.yaml                            Local container stack
 pom.xml                                 Maven build configuration
 sonar-project.properties                SonarQube analysis settings
+docs/                                   CI/CD setup notes and screenshot evidence
 ```
+
+## Documentation
+
+Additional CI/CD setup notes and screenshot evidence is available in
+[`docs/`](docs/):
+
+- [`docs/ci-cd.md`](docs/ci-cd.md) - SonarQube, ECR, GitHub Actions, Helm repo update, and branch protection setup
+- [`docs/screenshots/`](docs/screenshots/) - Pipeline, SonarQube, ECR, and deployed application screenshots
 
 ## Prerequisites
 
